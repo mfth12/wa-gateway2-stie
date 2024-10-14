@@ -7,7 +7,7 @@ services:
     environment:
       - PORT=${PORT}
       - KEY=${KEY}
-    working_dir: /app
+    working_dir: /
     volumes:
       - gtwdata:/app
       - ./wa_credentials:/app/wa_credentials
