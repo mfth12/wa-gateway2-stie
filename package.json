@@ -1,5 +1,5 @@
 {
-  "name": "wa-gateway",
+  "name": "wa-gateway2-stie",
   "version": "3.5.0",
   "scripts": {
     "start": "node index.js",
