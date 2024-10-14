@@ -4,6 +4,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js --ignore ./wa_credentials --ignore ./public",
+    "pm2": "pm2-runtime ecosystem.config.cjs",
+    "delpm2": "pm2 delete ecosystem.config.cjs",
     "production": "node server.js -- --staging"
   },
   "author": {
