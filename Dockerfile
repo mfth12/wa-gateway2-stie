@@ -2,9 +2,9 @@
 FROM node:18.16-alpine 
 
 WORKDIR /app
-COPY package*.json ./
+COPY package*.json ./app
 RUN npm install && npm install pm2 -g
-COPY . .
+COPY . ./app
 # RUN cp .env.sample .env
 # RUN npm run start
 
