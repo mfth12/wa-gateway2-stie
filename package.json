@@ -2,7 +2,6 @@
   "name": "wa-gateway2-stie",
   "version": "3.5.0",
   "main": "./index.js",
-  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js --ignore ./wa_credentials --ignore ./public",
