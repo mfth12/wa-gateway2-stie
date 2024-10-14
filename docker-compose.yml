@@ -1,7 +1,7 @@
 # version: "3.8"
 services:
   # aplikasi nodejs wa gateway
-  gateway:
+  gateway2:
     container_name: stie-wa-gateway2
     image: ghcr.io/mfth12/wa-gateway2-stie:latest
     environment:
