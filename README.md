@@ -1,4 +1,4 @@
-# Headless Multi Session Whatsapp Gateway NodeJS
+# Headless Multi Session Whatsapp Gateway NodeJSx
 
 Easy Setup Headless multi session Whatsapp Gateway with NodeJS
 
