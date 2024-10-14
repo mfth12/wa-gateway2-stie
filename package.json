@@ -7,8 +7,8 @@
     "production": "node server.js -- --staging"
   },
   "author": {
-    "name": "mimamch",
-    "email": "mimamch28@gmail.com"
+    "name": "mfth12",
+    "email": "ciftah12@gmail.com"
   },
   "license": "ISC",
   "dependencies": {
