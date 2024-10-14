@@ -5,8 +5,9 @@ WORKDIR /app2
 COPY package*.json ./
 RUN npm install && npm install pm2 -g
 COPY . /app2
+RUN echo "Lihat direktori"
+RUN pwd
 # RUN cp .env.sample .env
-# RUN npm run start
 
 EXPOSE 8180
 CMD [ "npm", "run", "pm2" ]
