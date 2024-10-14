@@ -1,10 +1,10 @@
 # FROM node:18.16 
 FROM node:18.16-alpine 
 
-WORKDIR /app2
+WORKDIR /app
 COPY package*.json ./
 RUN npm install && npm install pm2 -g
-COPY . .
+COPY . ./
 RUN echo "Lihat direktori"
 RUN pwd
 # RUN cp .env.sample .env
