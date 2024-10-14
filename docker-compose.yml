@@ -10,7 +10,7 @@ services:
     working_dir: /app2
     volumes:
       - gtwdata:/app2
-      - ./wa_credentials:/app/wa_credentials
+      - ./wa_credentials:/app2/wa_credentials
       # - ./session:/gateway2/session
     # network_mode: host
     ports:
