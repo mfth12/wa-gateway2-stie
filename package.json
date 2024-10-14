@@ -1,6 +1,8 @@
 {
   "name": "wa-gateway2-stie",
   "version": "3.5.0",
+  "main": "./index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js --ignore ./wa_credentials --ignore ./public",
@@ -28,6 +30,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:mimamch/wa-gateway.git"
+    "url": "git@github.com:mfth12/wa-gateway2-stie.git"
   }
 }
