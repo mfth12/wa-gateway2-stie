@@ -9,9 +9,9 @@ COPY . /app2
 # RUN npm run start
 
 EXPOSE 8180
-# CMD [ "npm", "run", "pm2" ]
+CMD [ "npm", "run", "pm2" ]
 # CMD ["pm2-runtime", "ecosystem.config.cjs"]
-CMD ["pm2-runtime", "/app2/ecosystem.config.cjs"]
+# CMD ["pm2-runtime", "/app2/ecosystem.config.cjs"]
 # CMD ["pm2", "start", "./server/config/index.js"]
 # CMD ["pm2-runtime", "server.js", "--exp-backoff-restart-delay=100"]
 # CMD ["pm2", "start", "server.js", "--exp-backoff-restart-delay=100"]
