@@ -7,9 +7,9 @@ services:
     environment:
       - PORT=${PORT}
       - KEY=${KEY}
-    working_dir: /
+    working_dir: /app2
     volumes:
-      - gtwdata:/app
+      - gtwdata:/app2
       - ./wa_credentials:/app/wa_credentials
       # - ./session:/gateway2/session
     # network_mode: host

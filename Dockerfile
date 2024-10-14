@@ -1,7 +1,7 @@
 # FROM node:18.16 
 FROM node:18.16-alpine 
 
-WORKDIR /app
+WORKDIR /app2
 COPY package*.json ./
 RUN npm install && npm install pm2 -g
 COPY . .
