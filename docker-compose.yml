@@ -10,8 +10,7 @@ services:
     # working_dir: /app
     volumes:
       # - gtwdata:/app
-      - ./wa_credentials:/app/wa_credentials
-      # - ./session:/gateway2/session
+      - ./wa_credentials:/wa_credentials
     # network_mode: host
     ports:
       - 8180:8180
