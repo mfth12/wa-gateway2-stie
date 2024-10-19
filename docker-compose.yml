@@ -1,4 +1,4 @@
-# version: "3.8"
+version: "3.8"
 services:
   # aplikasi nodejs wa gateway
   gateway2:
@@ -7,21 +7,13 @@ services:
     environment:
       - PORT=${PORT}
       - KEY=${KEY}
-    # working_dir: /app
     volumes:
-      # - gtwdata:/app
-      - ./wa_credentials:/wa_credentials
-    # network_mode: host
+      - ./wa_credentials:/wa_credentials # Pastikan folder ini di host sudah ada dan memiliki izin akses yang benar
     ports:
       - 8180:8180
     networks:
       - wa-gateway
     restart: always
-
-# mengatur volumes
-volumes:
-  gtwdata:
-    driver: local
 
 #setup jaringan
 networks:
