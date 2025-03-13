@@ -2,54 +2,54 @@
 
 Easy Setup Headless multi session Whatsapp Gateway with NodeJS
 
-- Support Multi device
-- Support Multi Session / Multi Phone Number
-- Send Text Message
-- Send Image
-- Send Document
+- Support multi device
+- Support multi session / multi phone number
+- Anti delay message
+- Bulk Message
 
-#### Read also [wa-multi-session](https://github.com/mimamch/wa-multi-session)
+#### Based on [wa-multi-session](https://github.com/mimamch/wa-multi-session)
 
-### ⚠️ This application need to running in NodeJS v18 or later. ⚠️
+## Environment Variables
 
-#### Please Read [How to install NodeJS](https://nodejs.org/en/download/package-manager)
+To run this project, you will need to add the following environment variables to your .env file
+
+```
+// .env
+
+PORT=5001 // which port to running on your machine
+KEY=mysupersecretkey # For Securing Some Data
+```
 
 ## Install and Running
 
-#### 1. Clone the project
+Clone the project
 
 ```bash
   git clone https://github.com/mimamch/wa_gateway.git
 ```
 
-#### 2. Go to the project directory
+Go to the project directory
 
 ```bash
   cd wa_gateway
 ```
 
-#### 3. Install dependencies
+Install dependencies
 
 ```bash
   npm install
 ```
 
-#### 4. Start the server
+Start the server
 
 ```bash
   npm run start
 ```
 
-#### 5. Open On Browser & Start Scan QR
+Open On Browser & Start New Session
 
-```
-http://localhost:5001/session/start?session=mysession
-```
-
-#### 6. Sending first message
-
-```
-http://localhost:5001/message/send-text?session=mysession&to=628123456789&text=Hello
+```bash
+  http://localhost:5000/start-session?session=mysession&scan=true
 ```
 
 ## API Reference
@@ -57,19 +57,18 @@ http://localhost:5001/message/send-text?session=mysession&to=628123456789&text=H
 #### Add new session
 
 ```
-  GET /session/start?session=NEW_SESSION_NAME
-  or
-  POST /session/start
+  GET /start-session?session=NEW_SESSION_NAME&scan=true
 ```
 
-| Parameter | Type     | Description                            |
-| :-------- | :------- | :------------------------------------- |
-| `session` | `string` | **Required**. Create Your Session Name |
+| Parameter | Type      | Description                            |
+| :-------- | :-------- | :------------------------------------- |
+| `session` | `string`  | **Required**. Create Your Session Name |
+| `scan`    | `boolean` | Print QR at Browser                    |
 
 #### Send Text Message
 
 ```
-  POST /message/send-text
+  POST /send-message
 ```
 
 | Body      | Type     | Description                                                              |
@@ -78,37 +77,22 @@ http://localhost:5001/message/send-text?session=mysession&to=628123456789&text=H
 | `to`      | `string` | **Required**. Receiver Phone Number with Country Code (e.g: 62812345678) |
 | `text`    | `string` | **Required**. Text Message                                               |
 
-#### Send Image
+#### Send Bulk Message
 
 ```
-  POST /message/send-image
+  POST /send-bulk-message
 ```
 
-| Body        | Type     | Description                                                              |
-| :---------- | :------- | :----------------------------------------------------------------------- |
-| `session`   | `string` | **Required**. Session Name You Have Created                              |
-| `to`        | `string` | **Required**. Receiver Phone Number with Country Code (e.g: 62812345678) |
-| `text`      | `string` | **Required**. Caption Massage                                            |
-| `image_url` | `string` | **Required**. URL Image                                                  |
-
-#### Send Document
-
-```
-  POST /message/send-document
-```
-
-| Body            | Type     | Description                                                              |
-| :-------------- | :------- | :----------------------------------------------------------------------- |
-| `session`       | `string` | **Required**. Session Name You Have Created                              |
-| `to`            | `string` | **Required**. Receiver Phone Number with Country Code (e.g: 62812345678) |
-| `text`          | `string` | **Required**. Caption Massage                                            |
-| `document_url`  | `string` | **Required**. Document URL                                               |
-| `document_name` | `string` | **Required**. Document Name                                              |
+| Body      | Type     | Description                                         |
+| :-------- | :------- | :-------------------------------------------------- |
+| `session` | `string` | **Required**. Session Name You Have Created         |
+| `data`    | `array`  | **Required**. Array Of Object Message Data          |
+| `delay`   | `number` | Delay Per-message in Miliseconds, Default to 5000ms |
 
 #### Delete session
 
 ```
-  GET /session/logout?session=SESSION_NAME
+  GET /delete-session?session=SESSION_NAME
 ```
 
 | Parameter | Type     | Description                            |
@@ -118,29 +102,20 @@ http://localhost:5001/message/send-text?session=mysession&to=628123456789&text=H
 #### Get All Session ID
 
 ```
-  GET /session
+  GET /sessions?key=mysupersecretkey
 ```
 
-## Examples
+| Parameter | Type     | Description                      |
+| :-------- | :------- | :------------------------------- |
+| `key`     | `string` | **Required**. Key on ".env" file |
 
-### Using Axios
+## Changelog
 
-```js
-// send text
-axios.post("http://localhost:5001/message/send-text", {
-  session: "mysession",
-  to: "62812345678",
-  text: "hello world",
-});
+V3.2.0
 
-// send image
-axios.post("http://localhost:5001/message/send-image", {
-  session: "mysession",
-  to: "62812345678",
-  text: "hello world",
-  image_url: "https://placehold.co/600x400",
-});
-```
+- Add Get All Session ID
+- Add Key for secret data
+- Update README.md
 
 ## Upgrading
 
