@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Using Node.js version 18.x
+    - name: Using Node.js version 22.x
       uses: actions/setup-node@v3
       with:
         node-version: 22.x
