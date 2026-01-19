@@ -15,7 +15,7 @@ app.use((req, res, next) => {
   console.log('------------------------------------');
   console.log(`[${new Date().toISOString()}]`);
   console.log(`${req.method} ${req.originalUrl}`);
-  console.log('Headers:', req.headers);
+  // console.log('Headers:', req.headers);
   next();
 });
 
