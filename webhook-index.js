@@ -23,7 +23,7 @@ app.use((req, res, next) => {
  * Webhook SESSION
  * wa-gateway akan POST ke: /session
  */
-app.post('/session', (req, res) => {
+app.post('/webhook/session', (req, res) => {
   console.log('SESSION PAYLOAD:');
   console.dir(req.body, { depth: null });
 
@@ -34,7 +34,7 @@ app.post('/session', (req, res) => {
  * Webhook MESSAGE
  * wa-gateway akan POST ke: /message
  */
-app.post('/message', (req, res) => {
+app.post('/webhook/message', (req, res) => {
   console.log('MESSAGE PAYLOAD:');
   console.dir(req.body, { depth: null });
 
