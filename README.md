@@ -1,161 +1,211 @@
-# Headless Multi Session Whatsapp Gateway NodeJS
+# Headless Multi Session WhatsApp Gateway
 
-Easy Setup Headless multi session Whatsapp Gateway with NodeJS
+A headless multi-session WhatsApp gateway with multi-device support, easy to set up using Docker.
 
-- Support Multi device
-- Support Multi Session / Multi Phone Number
-- Send Text Message
-- Send Image
-- Send Document
+- Multi-device support
+- Multi-session / multiple phone numbers
+- Send text messages, images, videos, and documents
+- Webhook integration
 
-#### Read also [wa-multi-session](https://github.com/mimamch/wa-multi-session)
+📌 Also see: [wa-multi-session](https://github.com/mimamch/wa-multi-session)
 
-### ⚠️ This application need to running in NodeJS v18 or later. ⚠️
+---
 
-#### Please Read [How to install NodeJS](https://nodejs.org/en/download/package-manager)
+## ⚠️ Prerequisites
 
-## Install and Running
+- Docker & Docker Compose installed
+  👉 [Install Docker](https://docs.docker.com/get-docker/)
 
-#### 1. Clone the project
+---
 
-```bash
-  git clone https://github.com/mimamch/wa_gateway.git
-```
+## Installation & Running
 
-#### 2. Go to the project directory
+### 1. Create Application Folder
 
-```bash
-  cd wa_gateway
-```
-
-#### 3. Install dependencies
+Create a new folder for your application at `~/app/wa-gateway` and navigate into it:
 
 ```bash
-  npm install
+mkdir -p ~/app/wa-gateway
+cd ~/app/wa-gateway
 ```
 
-#### 4. Start the server
+### 2. Create `docker-compose.yaml`
+
+Use the `nano` editor to create the file:
 
 ```bash
-  npm run start
+nano docker-compose.yaml
 ```
 
-#### 5. Open On Browser & Start Scan QR
+Paste the following content into the editor to create `docker-compose.yaml`
+
+```yaml
+# docker-compose.yaml
+services:
+  wa-gateway:
+    container_name: "wa-gateway"
+    restart: unless-stopped
+    image: mimamch/wa-gateway:latest
+    volumes:
+      - ./wa_credentials:/app/wa_credentials
+      - ./media:/app/media
+    ports:
+      - "5001:5001"
+    environment:
+      - KEY= # make your own api key (optional)
+```
+
+### 3. Start the container
+
+Run the following command in the same directory as your `docker-compose.yaml`:
+
+```bash
+docker compose up -d
+```
+
+### 4. Open Browser & Scan QR Code
+
+Visit this URL to scan the QR code from your WhatsApp device:
 
 ```
 http://localhost:5001/session/start?session=mysession
 ```
 
-#### 6. Sending first message
+> Replace `localhost` with your server's IP or domain if not running locally.
+
+> Replace `mysession` with your desired session name.
+
+### 5. Send Your First Message
+
+Example to send a text message:
 
 ```
 http://localhost:5001/message/send-text?session=mysession&to=628123456789&text=Hello
 ```
 
+---
+
 ## API Reference
 
-#### Add new session
+All API endpoints remain the same as the NodeJS version. Here's a quick reference:
 
-```
-  GET /session/start?session=NEW_SESSION_NAME
-  or
-  POST /session/start
-```
+### Create New Session
 
-| Parameter | Type     | Description                            |
-| :-------- | :------- | :------------------------------------- |
-| `session` | `string` | **Required**. Create Your Session Name |
-
-#### Send Text Message
-
-```
-  POST /message/send-text
+```bash
+GET /session/start?session=NEW_SESSION_NAME
 ```
 
-| Body      | Type     | Description                                                              |
-| :-------- | :------- | :----------------------------------------------------------------------- |
-| `session` | `string` | **Required**. Session Name You Have Created                              |
-| `to`      | `string` | **Required**. Receiver Phone Number with Country Code (e.g: 62812345678) |
-| `text`    | `string` | **Required**. Text Message                                               |
+or
 
-#### Send Image
-
-```
-  POST /message/send-image
+```bash
+POST /session/start
+{
+  "session": "NEW_SESSION_NAME"
+}
 ```
 
-| Body        | Type     | Description                                                              |
-| :---------- | :------- | :----------------------------------------------------------------------- |
-| `session`   | `string` | **Required**. Session Name You Have Created                              |
-| `to`        | `string` | **Required**. Receiver Phone Number with Country Code (e.g: 62812345678) |
-| `text`      | `string` | **Required**. Caption Massage                                            |
-| `image_url` | `string` | **Required**. URL Image                                                  |
+### Send Text Message
 
-#### Send Document
-
-```
-  POST /message/send-document
+```bash
+POST /message/send-text
 ```
 
-| Body            | Type     | Description                                                              |
-| :-------------- | :------- | :----------------------------------------------------------------------- |
-| `session`       | `string` | **Required**. Session Name You Have Created                              |
-| `to`            | `string` | **Required**. Receiver Phone Number with Country Code (e.g: 62812345678) |
-| `text`          | `string` | **Required**. Caption Massage                                            |
-| `document_url`  | `string` | **Required**. Document URL                                               |
-| `document_name` | `string` | **Required**. Document Name                                              |
+Body fields:
 
-#### Delete session
+| Field    | Type    | Required | Description                             |
+| -------- | ------- | -------- | --------------------------------------- |
+| session  | string  | Yes      | The session name you created            |
+| to       | string  | Yes      | Target phone number (e.g. 628123456789) |
+| text     | string  | Yes      | The text message                        |
+| is_group | boolean | No       | True if target is a group               |
 
-```
-  GET /session/logout?session=SESSION_NAME
-```
+### Send Image
 
-| Parameter | Type     | Description                            |
-| :-------- | :------- | :------------------------------------- |
-| `session` | `string` | **Required**. Create Your Session Name |
-
-#### Get All Session ID
-
-```
-  GET /session
+```bash
+POST /message/send-image
 ```
 
-## Examples
+Body includes all of the above plus `image_url`.
 
-### Using Axios
+### Send Document
 
-```js
-// send text
-axios.post("http://localhost:5001/message/send-text", {
-  session: "mysession",
-  to: "62812345678",
-  text: "hello world",
-});
-
-// send image
-axios.post("http://localhost:5001/message/send-image", {
-  session: "mysession",
-  to: "62812345678",
-  text: "hello world",
-  image_url: "https://placehold.co/600x400",
-});
+```bash
+POST /message/send-document
 ```
+
+Body includes:
+
+- `document_url`
+- `document_name`
+
+### Send Video
+
+```bash
+POST /message/send-video
+```
+
+Body fields:
+
+| Field     | Type    | Required | Description                             |
+| --------- | ------- | -------- | --------------------------------------- |
+| session   | string  | Yes      | The session name you created            |
+| to        | string  | Yes      | Target phone number (e.g. 628123456789) |
+| text      | string  | No       | Caption for the video (optional)        |
+| video_url | string  | Yes      | URL of the video file                   |
+| is_group  | boolean | No       | True if target is a group               |
+
+### Delete Session
+
+```bash
+GET /session/logout?session=SESSION_NAME
+```
+
+---
+
+## Webhook Setup
+
+To receive real-time events, set your webhook URL using the environment variable:
+
+```env
+WEBHOOK_BASE_URL="http://yourdomain.com/webhook"
+```
+
+Example webhook endpoints:
+
+- Session: `POST /webhook/session`
+- Message: `POST /webhook/message`
+
+---
+
+## Access Media Files
+
+Media files are stored inside the `./media` directory in the container. You can access them via:
+
+```
+http://localhost:5001/media/FILE_NAME
+```
+
+---
 
 ## Upgrading
 
-```
-npm install wa-multi-session@latest
+To update to the latest version:
+
+```bash
+cd ~/app/wa-gateway
+docker compose pull
+docker compose down
+docker compose up -d
 ```
 
 ## Documentation
 
-For detailed documentation, including guides and API references, please visit the [official documentation](https://github.com/mimamch/wa-gateway).
+For full documentation, examples, and guides, visit:
+👉 [https://github.com/mimamch/wa-gateway](https://github.com/mimamch/wa-gateway)
 
-## Contributing
+---
 
-Contributions are welcome! Please follow the guidelines outlined in the [CONTRIBUTING.md](https://github.com/mimamch/wa-gateway/blob/main/CONTRIBUTING.md) file.
+Let me know if you need configuration examples with environment variables (like webhook setup) or a multi-service deployment!
 
-## License
-
-This library is licensed under the [MIT License](https://github.com/mimamch/wa-gateway/blob/main/LICENSE).
+## Need Help?
+Get in touch with me in person via email 📧 [mimamch28@gmail.com](mailto:mimamch28@gmail.com)
