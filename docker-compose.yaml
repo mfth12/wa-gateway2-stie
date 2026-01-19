@@ -1,13 +1,21 @@
-# docker-compose.yaml
 services:
-  wa-gateway:
-    container_name: "wa-gateway"
-    restart: unless-stopped
-    image: mimamch/wa-gateway:latest
-    volumes:
-      - ./wa_credentials:/app/wa_credentials
-      - ./media:/app/media
-    ports:
-      - "5001:5001"
+  # aplikasi nodejs wa gateway
+  gateway2:
+    container_name: stie-wa-gateway2
+    image: ghcr.io/mfth12/wa-gateway4-stie:latest
     environment:
-      - KEY= # make your own api key (optional)
+      - PORT=${PORT}
+      - KEY=${KEY}
+    volumes:
+      - ./wa_credentials:/wa_credentials # Pastikan folder ini di host sudah ada dan memiliki izin akses yang benar
+      - ./media:/app/media # Pastikan juga
+    ports:
+      - 8180:8180
+    networks:
+      - wa-gateway
+    restart: always
+
+#setup jaringan
+networks:
+  wa-gateway:
+    driver: bridge
