@@ -8,8 +8,8 @@ services:
       - KEY=${KEY}
       - WEBHOOK_BASE_URL=${WEBHOOK_BASE_URL}
     volumes:
-      - ./wa_credentials:/wa_credentials # Pastikan folder ini di host sudah ada dan memiliki izin akses yang benar
-      - ./media:/media # Pastikan juga
+      - ./wa_credentials:/wa_credentials
+      - ./media:/media
     ports:
       - 8180:8180
     networks:

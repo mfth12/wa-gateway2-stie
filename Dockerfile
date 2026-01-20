@@ -1,5 +1,5 @@
 # FROM node:22.14
-FROM node:22.14-alpine AS runtime
+FROM node:22.14-alpine
 
 WORKDIR /app
 
